@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
+if(isset($_SESSION["nombre_u"])){
+require_once 'bbdd_bbfs.php';
 $nombre = $_SESSION["nombre_u"];
 $apellido = $_SESSION["apellido_u"];
 $telefono = $_SESSION["tel_u"];
@@ -8,6 +10,8 @@ $ciudad = $_SESSION["ciudad_u"];
 $sexo = $_SESSION["sexo_u"];
 $genero = $_SESSION["genero_u"];
 $nacimiento = $_SESSION["nacimiento_u"];
+
+//$n_ciudad = nombreCiudad($ciudad);
 ?>
 <html lang="es">
 	<head>
@@ -31,7 +35,7 @@ $nacimiento = $_SESSION["nacimiento_u"];
 				<nav>
 					<a href="home2.php">Home</a>
 					<a href="#">Settings</a>
-					<a href="#">SALIR</a>
+                                        <a href="logout.php">SALIR</a>
 				</nav>
 			</header>
 			
@@ -125,14 +129,14 @@ $nacimiento = $_SESSION["nacimiento_u"];
 			
 			<aside>
 				<div class="imagen"></div>
-				<h2><?php echo $nombre.$apellido;?></h2>
+				<h2><?php echo "$nombre $apellido";?></h2>
                                 <p>
                                 <div>Nombre : <?php echo $nombre;?></div>
                                 <div>Apellido : <?php echo $apellido;?></div>
                                 <div>Teléfono : <?php echo $telefono;?></div>
-                                <div>Ciudad : <?php echo $ciudad;?></div>
+                                <div>Nombre Ciudad : <?php echo $ciudad;?></div>
                                 <div>Sexo : <?php echo $sexo;?></div>
-                                <div>Genero : <?php echo $genero;?></div>
+                                <div>Género : <?php echo $genero;?></div>
                                 <div>Nacimiento : <?php echo $nacimiento;?></div>
                                 </p>
 				<div class="imagen"></div>
@@ -151,3 +155,9 @@ $nacimiento = $_SESSION["nacimiento_u"];
 		</div>
 	</body>
 </html>
+<?php
+}else{
+    echo "NO estas autentificado";
+    header("Location:home.php");
+}
+?>

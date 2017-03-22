@@ -88,7 +88,7 @@ function inicioSesion($email,$password){
     $link = conexion("bbfs");
 
     
-    $query = "SELECT * FROM usuario WHERE email='$email' && pass = '$password'";
+    $query = "SELECT * FROM usuario inner join ciudad on ciudad.idciudad = usuario.idciudad inner join genero on genero.idgenero = usuario.idgenero WHERE email='$email' && pass = '$password'";
     $result = mysqli_query($link,$query);
     
     if (mysqli_num_rows($result)) {
@@ -100,9 +100,9 @@ function inicioSesion($email,$password){
             $_SESSION["nombre_u"] = $array["nombre"];
             $_SESSION["apellido_u"] = $array["apellidos"];
             $_SESSION["tel_u"] = $array["telefono"];
-            $_SESSION["ciudad_u"] = $array["idciudad"];
+            $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
             $_SESSION["sexo_u"] = $array["sexo"];
-            $_SESSION["genero_u"] = $array["idgenero"];
+            $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["nacimiento_u"] = $array["anacimiento"];
             header("Location:fan.php");
             
@@ -132,6 +132,24 @@ function inicioSesion($email,$password){
             echo '</script>';
             echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
         }
+}
+
+function nombreCiudad($id_ciudad){
+    $con = conexion("bbfs");   
+    $select = "select nombre_ciudad from ciudad where idciudad = '4'";
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function nombreGenero($id_genero){
+    $con = conexion("bbfs");   
+    $select = "select nombre_genero from genero where idgenero = '$id_genero'";
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
 }
 
 ?>

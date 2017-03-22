@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+session_start();
+if(isset($_SESSION["nombre_u"])){
+require_once 'bbdd_bbfs.php';
+$nombre = $_SESSION["nombre_u"];
+$telefono = $_SESSION["tel_u"];
+$ciudad = $_SESSION["ciudad_u"];
+$genero = $_SESSION["genero_u"];
+$nc = $_SESSION["nc_u"];
+
+//$n_ciudad = nombreCiudad($ciudad);
+?>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
@@ -115,13 +127,14 @@
 			
 			<aside>
 				<div class="imagen"></div>
-				<h2>Nombre del MUSICO</h2>
-				<p>Informacion del musico Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<h2><?php echo "$nombre";?></h2>
+				<p>
+                                <div>Nombre : <?php echo $nombre;?></div>
+                                <div>Ciudad : <?php echo $ciudad;?></div>
+                                <div>Teléfono : <?php echo $telefono;?></div>
+                                <div>Genero : <?php echo $genero;?></div>
+                                <div>Nº componentes : <?php echo $nc;?></div>
+                                </p>
 				<div class="imagen"></div>
 			</aside>
 			
@@ -138,3 +151,9 @@
 		</div>
 	</body>
 </html>
+<?php
+}else{
+    echo "NO estas autentificado";
+    header("Location:home.php");
+}
+?>
