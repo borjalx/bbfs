@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if(isset($_SESSION["nombre_u"])){
+/*Tengo error a la hora de autentificar el tipo de usuario (MAR)*/
+if(isset($_SESSION["tipo_u"]) == 'l'){
 require_once 'bbdd_bbfs.php';
 $nombre = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];
@@ -153,7 +154,12 @@ $direccion = $_SESSION["direccion_u"];
 </html>
 <?php
 }else{
-    echo "NO estas autentificado";
-    header("Location:home.php");
+    /*
+    echo "<h2>Login o Password Incorrectos</h2>";*/
+    echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
+    echo '<script type="text/javascript">';
+    echo 'alert("NO estás autentificado");';
+    echo '</script>';
+    
 }
 ?>

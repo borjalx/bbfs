@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if(isset($_SESSION["nombre_u"])){
+if(isset($_SESSION["tipo_u"]) == 'f'){
 require_once 'bbdd_bbfs.php';
 $nombre = $_SESSION["nombre_u"];
 $apellido = $_SESSION["apellido_u"];
@@ -157,7 +157,12 @@ $nacimiento = $_SESSION["nacimiento_u"];
 </html>
 <?php
 }else{
-    echo "NO estas autentificado";
-    header("Location:home.php");
+    /*
+    echo "<h2>Login o Password Incorrectos</h2>";*/
+    echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
+    echo '<script type="text/javascript">';
+    echo 'alert("NO estás autentificado ");';
+    echo '</script>';
+   
 }
 ?>
