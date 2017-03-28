@@ -97,6 +97,7 @@ function inicioSesion($email,$password){
         $_SESSION["tipo_u"] = $array["tipo"];
 
         if ($array["tipo"] == 'f') {
+            $_SESSION["email_u"] = $array["email"];
             $_SESSION["nombre_u"] = $array["nombre"];
             $_SESSION["apellido_u"] = $array["apellidos"];
             $_SESSION["tel_u"] = $array["telefono"];
@@ -152,4 +153,19 @@ function nombreGenero($id_genero){
     return $resultado;
 }
 
+function conciertosxciudad($email_u){
+    $con = conexion("bbfs");
+    $select = "select concierto.nombre as nombre_c,concierto.estado,concierto.fecha,concierto.hora,concierto.precio,usuario.idciudad,usuario.nombre as nombre_l,ciudad.nombre_ciudad,genero.nombre_genero 
+                from concierto 
+                inner join usuario on concierto.email_local = usuario.email 
+                inner join ciudad on ciudad.idciudad = usuario.idciudad
+                inner join genero on genero.idgenero = usuario.idciudad
+                where usuario.idciudad = (select idciudad from usuario where email = '$email_u')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+    
+}
 ?>

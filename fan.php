@@ -3,6 +3,7 @@
 session_start();
 if(isset($_SESSION["tipo_u"]) == 'f'){
 require_once 'bbdd_bbfs.php';
+$email = $_SESSION["email_u"];
 $nombre = $_SESSION["nombre_u"];
 $apellido = $_SESSION["apellido_u"];
 $telefono = $_SESSION["tel_u"];
@@ -41,46 +42,27 @@ $nacimiento = $_SESSION["nacimiento_u"];
 			
 			<section class="main">
 				<article>
-					<h2 class="titulo">PROXIMOS CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $ranking = conciertosxciudad($email);
+
+                    echo '<h2 class="titulo">CONCIERTOS DE TU CIUDAD</h2>';
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Estado</th> <th>Fecha</th> <th>Hora</th> <th>Local</th> <th>Género</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($ranking)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre_c</td> <td>$estado</td> <td>$fecha</td> <td>$hora</td> <td>$nombre_l</td> <td>$nombre_genero</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 				
 				<article>
