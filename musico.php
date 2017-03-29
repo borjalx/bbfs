@@ -8,7 +8,7 @@ $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];
 $genero = $_SESSION["genero_u"];
 $nc = $_SESSION["nc_u"];
-
+$email = $_SESSION["email_u"];
 //$n_ciudad = nombreCiudad($ciudad);
 ?>
 <html lang="es">
@@ -33,97 +33,60 @@ $nc = $_SESSION["nc_u"];
 				<nav>
 					<a href="home2.php">Home</a>
 					<a href="#">Settings</a>
-					<a href="#">SALIR</a>
+                                        <a href="logout.php">SALIR</a>
 				</nav>
 			</header>
 			
 			<section class="main">
 				<article>
-					<h2 class="titulo">PROXIMOS CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $ranking = conciertosxciudad_m($email);
+
+                    echo "<h2 class='titulo'>CONCIERTOS DE $ciudad</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Estado</th> <th>Fecha</th> <th>Hora</th> <th>Local</th> <th>Género</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($ranking)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre_c</td> <td>$estado</td> <td>$fecha</td> <td>$hora</td> <td>$nombre_l</td> <td>$nombre_genero</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 				
 				<article>
-					<h2 class="titulo">AGENDA DE CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $sel = conciertosxgenero_m($email);
+
+                    echo "<h2 class='titulo'>CONCIERTOS DE $genero</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Fecha</th> <th>Hora</th> <th>Local</th> <th>Ciudad</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($sel)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre_c</td> <td>$fecha</td> <td>$hora</td> <td>$nombre_l</td> <td>$nombre_ciudad</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 			</section>
+			
 			
 			<aside>
 				<div class="imagen"></div>
@@ -137,7 +100,6 @@ $nc = $_SESSION["nc_u"];
                                 </p>
 				<div class="imagen"></div>
 			</aside>
-			
 			<footer>
 				<div class="derechos-autor">
 					<p>Todos los derechos reservados Copyright © BBFsound 2017.</p>

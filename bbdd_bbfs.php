@@ -108,20 +108,21 @@ function inicioSesion($email,$password){
             header("Location:fan.php");
             
         } else if ($array["tipo"] == 'l') {
-            
+            $_SESSION["email_u"] = $array["email"];
             $_SESSION["nombre_u"] = $array["nombre"];
             $_SESSION["tel_u"] = $array["telefono"];
-            $_SESSION["ciudad_u"] = $array["idciudad"];
-            $_SESSION["genero_u"] = $array["idgenero"];
+            $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
+            $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["aforo_u"] = $array["aforo"];
             $_SESSION["direccion_u"] = $array["direccion"];
             header("Location:local.php");
             
         } else if ($array["tipo"] == 'm') {
+            $_SESSION["email_u"] = $array["email"];
             $_SESSION["nombre_u"] = $array["nombre"];
             $_SESSION["tel_u"] = $array["telefono"];
-            $_SESSION["ciudad_u"] = $array["idciudad"];
-            $_SESSION["genero_u"] = $array["idgenero"];
+            $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
+            $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["nc_u"] = $array["n_componentes"];
             header("Location:musico.php");
         }
@@ -160,7 +161,55 @@ function conciertosxciudad($email_u){
                 inner join usuario on concierto.email_local = usuario.email 
                 inner join ciudad on ciudad.idciudad = usuario.idciudad
                 inner join genero on genero.idgenero = usuario.idciudad
-                where usuario.idciudad = (select idciudad from usuario where email = '$email_u')";
+                where concierto.estado = 'a' and usuario.idciudad = (select idciudad from usuario where email = '$email_u')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+    
+}
+
+function conciertosxgenero_m($email_u){
+    $con = conexion("bbfs");
+    $select = "select concierto.nombre as nombre_c,concierto.estado,concierto.fecha,concierto.hora,concierto.precio,usuario.idciudad,usuario.nombre as nombre_l,ciudad.nombre_ciudad,genero.nombre_genero 
+                from concierto 
+                inner join usuario on concierto.email_local = usuario.email 
+                inner join ciudad on ciudad.idciudad = usuario.idciudad
+                inner join genero on genero.idgenero = usuario.idciudad
+                where concierto.estado = 'p' and usuario.idgenero = (select idgenero from usuario where email = '$email_u')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+    
+}
+
+function conciertosxciudad_m($email_u){
+    $con = conexion("bbfs");
+    $select = "select concierto.nombre as nombre_c,concierto.estado,concierto.fecha,concierto.hora,concierto.precio,usuario.idciudad,usuario.nombre as nombre_l,ciudad.nombre_ciudad,genero.nombre_genero 
+                from concierto 
+                inner join usuario on concierto.email_local = usuario.email 
+                inner join ciudad on ciudad.idciudad = usuario.idciudad
+                inner join genero on genero.idgenero = usuario.idciudad
+                where concierto.estado = 'p' and usuario.idciudad = (select idciudad from usuario where email = '$email_u')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+    
+}
+
+function conciertosxgenero($email_u){
+    $con = conexion("bbfs");
+    $select = "select concierto.nombre as nombre_c,concierto.estado,concierto.fecha,concierto.hora,concierto.precio,usuario.idciudad,usuario.nombre as nombre_l,ciudad.nombre_ciudad,genero.nombre_genero 
+                from concierto 
+                inner join usuario on concierto.email_local = usuario.email 
+                inner join ciudad on ciudad.idciudad = usuario.idciudad
+                inner join genero on genero.idgenero = usuario.idciudad
+                where concierto.estado = 'a' and usuario.idgenero = (select idgenero from usuario where email = '$email_u')";
     
     $resultado= mysqli_query($con, $select);
     

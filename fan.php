@@ -47,7 +47,7 @@ $nacimiento = $_SESSION["nacimiento_u"];
 
                     $ranking = conciertosxciudad($email);
 
-                    echo '<h2 class="titulo">CONCIERTOS DE TU CIUDAD</h2>';
+                    echo "<h2 class='titulo'>CONCIERTOS DE $ciudad</h2>";
                     echo '<div class="centrar-tabla">';
                     echo "<table>";
                     echo "<tr>";
@@ -66,46 +66,27 @@ $nacimiento = $_SESSION["nacimiento_u"];
 				</article>
 				
 				<article>
-					<h2 class="titulo">VOTAR CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $sel = conciertosxgenero($email);
+
+                    echo "<h2 class='titulo'>CONCIERTOS DE $genero</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Fecha</th> <th>Hora</th> <th>Local</th> <th>Ciudad</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($sel)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre_c</td> <td>$fecha</td> <td>$hora</td> <td>$nombre_l</td> <td>$nombre_ciudad</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 			</section>
 			
