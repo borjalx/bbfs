@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
+/*me falta hacer que a los locales les salga los musicos por ciudad y generos disponibles*/
 /*Tengo error a la hora de autentificar el tipo de usuario (MAR)*/
 if(isset($_SESSION["tipo_u"]) == 'l'){
 require_once 'bbdd_bbfs.php';
