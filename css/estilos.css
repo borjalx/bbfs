@@ -42,7 +42,7 @@ form {
     width: 45%;
 }
 
-input[type="text"] {
+header input[type="text"] {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
     outline: 0px;
     width: 80%;
@@ -53,7 +53,7 @@ input[type="text"] {
     padding: 10px 15px;
 }
 
-button[type="submit"] {
+ header button[type="submit"] {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
     outline: 0px;
     background-color: #c0392b;

@@ -35,7 +35,7 @@ $nacimiento = $_SESSION["nacimiento_u"];
 				</form>
 				<nav>
 					<a href="home2.php">Home</a>
-					<a href="#">Settings</a>
+                                        <a href="settings-fan.php">Settings</a>
                                         <a href="logout.php">SALIR</a>
 				</nav>
 			</header>

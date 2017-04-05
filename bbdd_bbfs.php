@@ -217,4 +217,17 @@ function conciertosxgenero($email_u){
     return $resultado;
     
 }
+/*No se actualiza el perfil despues de actualizar datos*/
+function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$sexo,$genero,$año_nacimiento,$password){
+    $con = conexion("bbfs");
+    $insert = "UPDATE usuario set pass='$password',nombre='$nombre',apellidos='$apellidos', telefono='$telefono', idciudad='$ciudad', sexo='$sexo', idgenero='$genero', anacimiento='$año_nacimiento' where email='$email'";
+    
+    if(mysqli_query($con, $insert)){
+        echo "Usuario modificado correctamente<br>";
+        echo "<a href='fan.php'>Volver al perfil</a>";
+    }else{
+        echo "ERROR!";
+        echo mysqli_error($con);
+    }
+}
 ?>
