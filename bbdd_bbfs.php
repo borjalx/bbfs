@@ -218,9 +218,9 @@ function conciertosxgenero($email_u){
     
 }
 /*No se actualiza el perfil despues de actualizar datos*/
-function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$sexo,$genero,$año_nacimiento,$password){
+function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$genero){
     $con = conexion("bbfs");
-    $insert = "UPDATE usuario set pass='$password',nombre='$nombre',apellidos='$apellidos', telefono='$telefono', idciudad='$ciudad', sexo='$sexo', idgenero='$genero', anacimiento='$año_nacimiento' where email='$email'";
+    $insert = "UPDATE usuario set nombre='$nombre',apellidos='$apellidos', telefono='$telefono', idciudad='$ciudad', idgenero='$genero' where email='$email'";
     
     if(mysqli_query($con, $insert)){
         echo "Usuario modificado correctamente<br>";
@@ -229,5 +229,35 @@ function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$sexo,$genero,$a�
         echo "ERROR!";
         echo mysqli_error($con);
     }
+}
+    
+function cambiarPass($email,$contraseña){
+    $con = conexion("bbfs");
+    $consulta = "UPDATE usuario SET pass='$contraseña' WHERE email='$email'";
+
+    if (mysqli_query($con, $consulta)) {
+        echo "Contraseña modificada<br>";
+        echo "<a href='fan.php'>Volver al menú<a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+
+function verificarUsuario($email,$contraseña){
+    
+    $conectar = conexion("bbfs");
+    $consulta = "select * from usuario where email='$email' and pass='$contraseña'";
+    
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    }
+
 }
 ?>

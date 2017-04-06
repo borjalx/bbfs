@@ -9,10 +9,7 @@ if(isset($_POST['editar'])){
         $tel = $_POST['tel'];
         $town = $_POST['town'];
         $gender = $_POST['gender'];
-        $birth = $_POST['birth'];
-        $pass = $_POST['pass'];
-        $sex = $_POST['sex'];
-        editarFan($email, $name, $surn, $tel, $town, $sex, $gender, $birth, $pass);
+        editarFan($email, $name, $surn, $tel, $town, $gender);
 
 }else if (isset($_SESSION["tipo_u"]) == 'f') {
 
@@ -43,8 +40,6 @@ if(isset($_POST['editar'])){
                     <input type="text" name="surn" value="<?php echo $apellido; ?>"/>
                     <p> Telefono : </p>
                     <input type="text" name="tel" value="<?php echo $telefono; ?>"/>
-                    <p>Año de nacimiento:</p>
-                    <input type="number" name="birth" min="1917" max="2017">
                     <p> Ciudad : </p>
                     <select name="town" selected="<?php echo $ciudad; ?>">
                         <option value="4">Madrid</option>
@@ -58,9 +53,6 @@ if(isset($_POST['editar'])){
                         <option value="8">Gran Canaria</option>
                         <option value="9">Bilbao</option>
                     </select>
-                    <p>Sexo:</p>
-                    Hombre<input type="radio" name="sex" value="m">
-                    Mujer<input type="radio" name="sex" value="f">
                     <p>Genero musical favorito:</p>
                     <select name="gender">
                         <option value="1">Rock</option>
@@ -74,10 +66,10 @@ if(isset($_POST['editar'])){
                         <option value="10">Reggaeton</option>
                         <option value="4">Bachata</option>
                     </select>
-                    <p>Nueva contraseña: </p>
-                    <br><input type="password" name="pass"><br>
                     <input type="submit" name="editar" value="editar">
                 </form>
+                <a href="fan.php"> Volver a página de fan</a><br>
+                <a href="cambiarPass.php"> Cambiar contraseña</a>
             </div>
             <?php
             // put your code here
