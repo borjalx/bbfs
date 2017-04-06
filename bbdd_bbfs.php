@@ -230,14 +230,34 @@ function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$genero){
         echo mysqli_error($con);
     }
 }
+
+function editarLocal($email,$nombre,$telefono,$ciudad,$genero,$aforo,$direccion){
+    $con = conexion("bbfs");
+    //$nombre', '$telefono', '$ciudad', '$genero', '$aforo', '$direccion',
+    $insert = "UPDATE usuario set nombre='$nombre', telefono='$telefono', idciudad='$ciudad', idgenero='$genero', aforo = '$aforo', direccion = '$direccion' where email='$email'";
     
-function cambiarPass($email,$contraseña){
+    if(mysqli_query($con, $insert)){
+        echo "Usuario modificado correctamente<br>";
+        echo "<a href='local.php'>Volver al perfil</a>";
+    }else{
+        echo "ERROR!";
+        echo mysqli_error($con);
+    }
+}
+    
+function cambiarPass($email,$contraseña,$tipo){
     $con = conexion("bbfs");
     $consulta = "UPDATE usuario SET pass='$contraseña' WHERE email='$email'";
 
     if (mysqli_query($con, $consulta)) {
         echo "Contraseña modificada<br>";
-        echo "<a href='fan.php'>Volver al menú<a>";
+        if($tipo == 'f'){
+            echo "<a href='fan.php'>Volver al menú<a>";
+        }else if($tipo == 'l'){
+            echo "<a href='local.php'>Volver al menú<a>";
+        }else if($tipo == 'm'){
+            echo "<a href='musico.php'>Volver al menú<a>";
+        }
     } else {
         echo mysqli_error($con);
     }

@@ -10,6 +10,7 @@ $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];
 $aforo = $_SESSION["aforo_u"];
 $direccion = $_SESSION["direccion_u"];
+$genero = $_SESSION["genero_u"];
 
 //$n_ciudad = nombreCiudad($ciudad);
 ?>
@@ -34,8 +35,8 @@ $direccion = $_SESSION["direccion_u"];
 				</form>
 				<nav>
 					<a href="home2.php">Home</a>
-					<a href="#">Settings</a>
-					<a href="#">SALIR</a>
+                                        <a href="settings-local.php">Settings</a>
+                                        <a href="logout.php">SALIR</a>
 				</nav>
 			</header>
 			
@@ -136,6 +137,7 @@ $direccion = $_SESSION["direccion_u"];
                                 <div>Teléfono : <?php echo $telefono;?></div>
                                 <div>Aforo : <?php echo $aforo;?></div>
                                 <div>Dirección : <?php echo $direccion;?></div>
+                                <div>Genero : <?php echo $genero?></div>
                                 </p>
 				<div class="imagen"></div>
 			</aside>

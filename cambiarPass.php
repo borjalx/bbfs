@@ -6,6 +6,7 @@ session_start();
 require_once 'bbdd_bbfs.php';
 if (isset($_SESSION['tipo_u'])) {
     $email = $_SESSION["email_u"];
+    $tipo = $_SESSION['tipo_u'];
 
     if (isset($_POST['comprobar'])) {
         $contraseña = $_POST['pass11'];
@@ -30,7 +31,7 @@ if (isset($_SESSION['tipo_u'])) {
         $contraseña3 = $_POST['pass21'];
         $conrtaseña4 = $_POST['pass22'];
         if ($contraseña3 == $conrtaseña4) {
-            cambiarPass($email, $contraseña3);
+            cambiarPass($email, $contraseña3,$tipo);
         } else {
             echo 'Contraseña erronea';
         }
