@@ -32,7 +32,7 @@ $email = $_SESSION["email_u"];
 				</form>
 				<nav>
 					<a href="home2.php">Home</a>
-					<a href="#">Settings</a>
+                                        <a href="settings-musico.php">Settings</a>
                                         <a href="logout.php">SALIR</a>
 				</nav>
 			</header>

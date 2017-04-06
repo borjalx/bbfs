@@ -231,6 +231,19 @@ function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$genero){
     }
 }
 
+function editarMusico($email,$nombre,$telefono,$ciudad,$genero,$ncomponentes){
+    $con = conexion("bbfs");
+    $insert = "UPDATE usuario set nombre='$nombre',n_componentes='$ncomponentes', telefono='$telefono', idciudad='$ciudad', idgenero='$genero' where email='$email'";
+    
+    if(mysqli_query($con, $insert)){
+        echo "Usuario modificado correctamente<br>";
+        echo "<a href='musico.php'>Volver al perfil</a>";
+    }else{
+        echo "ERROR!";
+        echo mysqli_error($con);
+    }
+}
+
 function editarLocal($email,$nombre,$telefono,$ciudad,$genero,$aforo,$direccion){
     $con = conexion("bbfs");
     //$nombre', '$telefono', '$ciudad', '$genero', '$aforo', '$direccion',
