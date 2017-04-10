@@ -293,4 +293,69 @@ function verificarUsuario($email,$contraseña){
     }
 
 }
+
+function conciertosDisponibles($genero){
+    $con = conexion("bbfs");
+    $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre_usuario, ciudad.nombre_ciudad
+               from concierto inner join usuario on concierto.email_local = usuario.email
+               inner join ciudad on ciudad.idciudad = usuario.idciudad
+               where usuario.idgenero = '$genero'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function apuntaraConcierto($idconcierto,$mail_grupo,$fecha){
+    $con = conexion("bbfs");
+    $consulta = "INSERT INTO apuntar VALUES ('$idconcierto', '$mail_grupo', '$fecha')";
+
+    if (mysqli_query($con, $consulta)) {
+        echo "Apuntado correctamente<br>";
+        echo "<a href='musico.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function crearConcierto($nombre,$fecha,$hora,$precio,$mail,$genero){
+    $con = conexion("bbfs");
+    $consulta = "INSERT INTO concierto VALUES ('$nombre','p','$fecha','$hora','$precio','$mail','$genero')";
+
+    if (mysqli_query($con, $consulta)) {
+        echo "Creado correctamente<br>";
+        echo "<a href='local.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function musicosxc($idciudad){
+    $con = conexion("bbfs");
+    $select = "select usuario.nombre, usuario.email, usuario.telefono, usuario.n_componentes, genero.nombre_genero
+               from usuario 
+               inner join genero on genero.idgenero = usuario.idgenero
+               where usuario.idciudad = '$idciudad'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function musicosxg($idgenero){
+    $con = conexion("bbfs");
+    $select = "select usuario.nombre, usuario.email, usuario.telefono, usuario.n_componentes, ciudad.nombre_ciudad
+               from usuario 
+               inner join ciudad on ciudad.idciudad = usuario.idciudad
+               where usuario.idgenero = '$idgenero'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
 ?>

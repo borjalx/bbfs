@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 session_start();
-/*me falta hacer que a los locales les salga los musicos por ciudad y generos disponibles*/
 /*Tengo error a la hora de autentificar el tipo de usuario (MAR)*/
 if(isset($_SESSION["tipo_u"]) == 'l'){
 require_once 'bbdd_bbfs.php';
@@ -11,7 +10,7 @@ $ciudad = $_SESSION["ciudad_u"];
 $aforo = $_SESSION["aforo_u"];
 $direccion = $_SESSION["direccion_u"];
 $genero = $_SESSION["genero_u"];
-
+$email = $_SESSION["email_u"];
 //$n_ciudad = nombreCiudad($ciudad);
 ?>
 <html lang="es">
@@ -42,89 +41,51 @@ $genero = $_SESSION["genero_u"];
 			
 			<section class="main">
 				<article>
-					<h2 class="titulo">PROXIMOS CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $ranking = musicosxc($ciudad);
+
+                    echo "<h2 class='titulo'>MÚSICOS de $ciudad</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Email</th> <th>Telefono</th> <th>Número de componentes</th> <th>Género</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($ranking)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre</td> <td>$email</td> <td>$telefono</td> <td>$n_componentes</td> <td>$nombre_genero</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 				
 				<article>
-					<h2 class="titulo">VOTAR CONCIERTOS</h2>
-					<div class="centrar-tabla">
-					<table>
-						<tr>
-							<th>Columna</th>
-							<th>Columna</th>
-							<th>Columna</th>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-						<tr>
-							<td>Fila</td>
-							<td>Fila</td>
-							<td>Fila</td>
-						</tr>
-					</table>
-					</div>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $ranking2 = musicosxg($ciudad);
+
+                    echo "<h2 class='titulo'>MÚSICOS de $genero</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Email</th> <th>Telefono</th> <th>Número de componentes</th> <th>Ciudad</th><br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($ranking2)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        echo "<tr>";
+                        echo "<td>$nombre</td> <td>$email</td> <td>$telefono</td> <td>$n_componentes</td> <td>$nombre_ciudad</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
 				</article>
 			</section>
 			
