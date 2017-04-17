@@ -358,4 +358,24 @@ function musicosxg($idgenero){
     desconectar($con);
     return $resultado;
 }
+
+function votarConcierto($email,$idconcierto,$fecha){
+    $con = conexion("bbfs");
+    $select = "insert into votar_concierto values ('$idconcierto','$email','$fecha')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function votarMusico($email_fan,$email_musico,$fecha){
+    $con = conexion("bbfs");
+    $select = "insert into votar_concierto values ('$email_musico','$email_fan','$fecha')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
 ?>
