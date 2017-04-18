@@ -88,7 +88,7 @@ function inicioSesion($email,$password){
     $link = conexion("bbfs");
 
     
-    $query = "SELECT * FROM usuario inner join ciudad on ciudad.idciudad = usuario.idciudad inner join genero on genero.idgenero = usuario.idgenero WHERE email='$email' && pass = '$password'";
+    $query = "SELECT *,genero.idgenero as idg FROM usuario inner join ciudad on ciudad.idciudad = usuario.idciudad inner join genero on genero.idgenero = usuario.idgenero WHERE email='$email' && pass = '$password'";
     $result = mysqli_query($link,$query);
     
     if (mysqli_num_rows($result)) {
@@ -105,6 +105,7 @@ function inicioSesion($email,$password){
             $_SESSION["sexo_u"] = $array["sexo"];
             $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["nacimiento_u"] = $array["anacimiento"];
+            $_SESSION["idg_u"] = $array["idgenero"];
             header("Location:fan.php");
             
         } else if ($array["tipo"] == 'l') {
@@ -113,6 +114,7 @@ function inicioSesion($email,$password){
             $_SESSION["tel_u"] = $array["telefono"];
             $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
             $_SESSION["genero_u"] = $array["nombre_genero"];
+            $_SESSION["idg_u"] = $array["idgenero"];
             $_SESSION["aforo_u"] = $array["aforo"];
             $_SESSION["direccion_u"] = $array["direccion"];
             header("Location:local.php");
@@ -124,6 +126,7 @@ function inicioSesion($email,$password){
             $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
             $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["nc_u"] = $array["n_componentes"];
+            $_SESSION["idg_u"] = $array["idgenero"];
             header("Location:musico.php");
         }
         }else{
@@ -296,7 +299,7 @@ function verificarUsuario($email,$contraseña){
 
 function conciertosDisponibles($genero){
     $con = conexion("bbfs");
-    $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre_usuario, ciudad.nombre_ciudad
+    $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre, ciudad.nombre_ciudad
                from concierto inner join usuario on concierto.email_local = usuario.email
                inner join ciudad on ciudad.idciudad = usuario.idciudad
                where usuario.idgenero = '$genero'";
@@ -309,7 +312,7 @@ function conciertosDisponibles($genero){
 
 function apuntaraConcierto($idconcierto,$mail_grupo,$fecha){
     $con = conexion("bbfs");
-    $consulta = "INSERT INTO apuntar VALUES ('$idconcierto', '$mail_grupo', '$fecha')";
+    $consulta = "INSERT INTO apuntar VALUES ('$idconcierto', '$mail_grupo', '$fecha','n')";
 
     if (mysqli_query($con, $consulta)) {
         echo "Apuntado correctamente<br>";
@@ -320,10 +323,10 @@ function apuntaraConcierto($idconcierto,$mail_grupo,$fecha){
     desconectar($con);
 }
 
-function crearConcierto($nombre,$fecha,$hora,$precio,$mail,$genero){
+function crearConcierto($nombre,$fecha,$hora,$precio,$mail,$idgenero){
     $con = conexion("bbfs");
-    $consulta = "INSERT INTO concierto VALUES ('$nombre','p','$fecha','$hora','$precio','$mail','$genero')";
-
+    $consulta = "INSERT INTO concierto VALUES (null,'$nombre','p','$fecha','$hora','$precio','$mail','$idgenero')";
+    
     if (mysqli_query($con, $consulta)) {
         echo "Creado correctamente<br>";
         echo "<a href='local.php'> Volver </a>";

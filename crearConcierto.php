@@ -10,13 +10,15 @@ $aforo = $_SESSION["aforo_u"];
 $direccion = $_SESSION["direccion_u"];
 $genero = $_SESSION["genero_u"];
 $email = $_SESSION["email_u"];
+
 if(isset($_POST['crear'])){
     $nombre_conc = $_POST['nombrec'];
     $fecha_conc = $_POST['fecha'];
     $hora_conc = $_POST['hora'];
     $precio_conc = $_POST['precio'];
+    $idgenero = $_POST["genero"];
     
-    crearConcierto($nombre_conc, $fecha_conc, $hora_conc, $precio_conc, $email, $genero);
+    crearConcierto($nombre_conc, $fecha_conc, $hora_conc, $precio_conc, $email, $idgenero);
 }
 ?>
 <html>
@@ -35,6 +37,19 @@ if(isset($_POST['crear'])){
                 <input type="time" name="hora">
                 Precio entrada : 
                 <input type="number" name="precio">
+                Genero musical favorito:
+                <select name="genero">
+                        <option value="1">Rock</option>
+                        <option value="2">Rap</option>
+                        <option value="5">Electrónica</option>
+                        <option value="6">Hip Hop</option>
+                        <option value="3">Trap</option>
+                        <option value="7">Pop</option>
+                        <option value="8">Reggae</option>
+                        <option value="9">Jazz</option>
+                        <option value="10">Reggaeton</option>
+                        <option value="4">Bachata</option>
+                </select>
                 <input type="submit" name="crear" value="CREAR">
         </form>
         
