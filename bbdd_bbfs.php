@@ -94,12 +94,12 @@ function inicioSesion($email,$password){
               inner join genero on genero.idgenero = usuario.idgenero 
               WHERE email='$email' && pass = '$password'";
     $result = mysqli_query($link,$query);
-    
+    echo $query;
     if (mysqli_num_rows($result)) {
         $array = mysqli_fetch_array($result);
 
         $_SESSION["tipo_u"] = $array["tipo"];
-        $_SESSION["idg_u"] = $array["idg"];
+        //$_SESSION["idg_u"] = $array["idgenero"];
 
         if ($array["tipo"] == 'f') {
             $_SESSION["email_u"] = $array["email"];
@@ -122,7 +122,7 @@ function inicioSesion($email,$password){
             $_SESSION["idg_u"] = $array["idgenero"];
             $_SESSION["aforo_u"] = $array["aforo"];
             $_SESSION["direccion_u"] = $array["direccion"];
-            $_SESSION["idg_u"] = $array["idg"];
+            //$_SESSION["idg_u"] = $array["idgenero"];
             header("Location:local.php");
             
         } else if ($array["tipo"] == 'm') {
@@ -132,7 +132,8 @@ function inicioSesion($email,$password){
             $_SESSION["ciudad_u"] = $array["nombre_ciudad"];
             $_SESSION["genero_u"] = $array["nombre_genero"];
             $_SESSION["nc_u"] = $array["n_componentes"];
-            $_SESSION["idg_u"] = $array["idg"];
+            $_SESSION["idg_u"] = $array["idgenero"];
+            
             header("Location:musico.php");
         }
         }else{

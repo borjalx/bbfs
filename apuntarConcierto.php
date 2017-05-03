@@ -9,6 +9,7 @@ $genero = $_SESSION["genero_u"];
 $nc = $_SESSION["nc_u"];
 $email = $_SESSION["email_u"];
 $idg = $_SESSION["idg_u"];
+
 //$n_ciudad = nombreCiudad($ciudad);
 if(isset($_POST['escoger1'])){
     $idc = $_POST['con_c'];
