@@ -94,7 +94,7 @@ function inicioSesion($email,$password){
               inner join genero on genero.idgenero = usuario.idgenero 
               WHERE email='$email' && pass = '$password'";
     $result = mysqli_query($link,$query);
-    echo $query;
+    
     if (mysqli_num_rows($result)) {
         $array = mysqli_fetch_array($result);
 
@@ -381,6 +381,32 @@ function votarConcierto($email,$idconcierto,$fecha){
 function votarMusico($email_fan,$email_musico,$fecha){
     $con = conexion("bbfs");
     $select = "insert into votar_concierto values ('$email_musico','$email_fan','$fecha')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function musicosApuntados_concierto($mail_local){
+    $con = conexion("bbfs");
+    $select = "select apuntar.* from apuntar
+               inner join usuario on apuntar.mail_grupo = usuario.email
+               inner join concierto on concierto.idconcierto = apuntar.idconcierto
+               where concierto.email_local = '$mail_local'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function musicosConcierto($idconcierto){
+    $con = conexion("bbfs");
+    $select = "select apuntar.* from apuntar
+               inner join usuario on apuntar.mail_grupo = usuario.email
+               inner join concierto on concierto.idconcierto = apuntar.idconcierto
+               where concierto.idconierto = '$idconcierto'";
     
     $resultado= mysqli_query($con, $select);
     
