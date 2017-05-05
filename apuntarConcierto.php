@@ -41,7 +41,9 @@ if(isset($_POST['escoger1'])){
         $conc = conciertosDisponibles($idg);        
         while ($fila = mysqli_fetch_array($conc)){
             extract($fila);
+            if(!comprobarApuntadoConcierto($email, $idconcierto)){
             echo "<option value='$idconcierto'> $idconcierto</option>";
+            }
         }
         ?>
     </select>

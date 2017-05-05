@@ -421,7 +421,6 @@ function escogerMusico($idconcierto, $mail_musico){
     
     if (mysqli_query($con, $consulta)) {
         echo "Modificada tabla concierto<br>";
-        echo "<a href='local.php'> Volver </a>";
     } else {
         echo mysqli_error($con);
     }
@@ -448,7 +447,84 @@ function conciertoSinMusico(){
     $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre as n_local, ciudad.nombre_ciudad
                from concierto inner join usuario on concierto.email_local = usuario.email
                inner join ciudad on ciudad.idciudad = usuario.idciudad
-               where concierto.mail_musico = '' and concierto.estado = 'p'";
+               where concierto.mail_musico is null and concierto.estado = 'p'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function conciertosCelebrados(){
+    $con = conexion("bbfs");
+    $select = "select * from concierto where fecha < now() and estado = 'a'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function apuntarConciertoAsistido($email, $idconcierto){
+    $con = conexion("bbfs");
+    $consulta = "insert into concierto_asistido (`email_fan`, `idconcierto`) values ('$email', '$idconcierto')";
+    echo "<br>$consulta<br>";         
+ 
+    if (mysqli_query($con, $consulta)) {
+        echo "Apuntado a concierto asistido <br>";
+        echo "<a href='fan.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function comprobarConciertoAsistido($email,$idconcierto){
+    $conectar = conexion("bbfs");
+    $consulta = "select * from concierto_asistido where email_fan ='$email' and idconcierto ='$idconcierto'";
+    
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+function comprobarMusicoConcierto($email_musico, $idconcierto){
+    $conectar = conexion("bbfs");
+    $consulta = "select * from concierto where musico_mail ='$email_musico' and idconcierto ='$idconcierto'";
+    
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+function comprobarApuntadoConcierto($email_musico, $idconcierto){
+    $conectar = conexion("bbfs");
+    $consulta = "select * from apuntar where mail_grupo ='$email_musico' and idconcierto ='$idconcierto'";
+    
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+
+function conciertosAsistidos($email){
+    $con = conexion("bbfs");
+    $select = "select * from concierto_asistido where email_fan = '$email'";
     
     $resultado= mysqli_query($con, $select);
     

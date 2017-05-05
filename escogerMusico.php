@@ -46,7 +46,7 @@ echo "</table>";
     extract($fila);
     /* Siempre después de extract las variables se llaman como en la bbdd
      */
-    echo "<option name='$idconcierto'>$idconcierto</option>";
+    echo "<option value='$idconcierto'>$idconcierto</option>";
 }
         ?>
     </select>
