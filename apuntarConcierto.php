@@ -13,11 +13,10 @@ $idg = $_SESSION["idg_u"];
 //$n_ciudad = nombreCiudad($ciudad);
 if(isset($_POST['escoger1'])){
     $idc = $_POST['con_c'];
-    echo $idc;
+    
     $hoy = getdate();
     $date = $hoy['year']."-".$hoy['mon']."-".$hoy['mday'];
-    echo $email;
-    echo $date;
+
     apuntaraConcierto($idc, $email, $date);
 }else {
 ?>
@@ -26,10 +25,9 @@ if(isset($_POST['escoger1'])){
         <th>ID concierto</th> <th>Nombre concierto</th> <th>Estado</th> <th>Fecha</th> <th>hora</th> <th>Local</th> <th>Ciudad</th><br>
     </tr>
     <?php
-    $conc = conciertosDisponibles($idg);
+    $conc = conciertoSinMusico();
     while ($fila = mysqli_fetch_array($conc)) {        
         extract($fila);
-
         echo "<tr>";
         echo "<td>$idconcierto</td> <td>$nombre</td> <td>$estado</td> <td>$fecha</td> <td>$hora</td> <td>$n_local</td> <td>$nombre_ciudad</td>";
         echo "</tr>";

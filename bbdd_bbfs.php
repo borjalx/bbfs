@@ -309,7 +309,7 @@ function conciertosDisponibles($genero){
     $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre as n_local, ciudad.nombre_ciudad
                from concierto inner join usuario on concierto.email_local = usuario.email
                inner join ciudad on ciudad.idciudad = usuario.idciudad
-               where usuario.idgenero = '$genero'";
+               where usuario.idgenero = '$genero' and concierto.estado = 'p'";
     $resultado= mysqli_query($con, $select);
     
     desconectar($con);
@@ -393,7 +393,7 @@ function musicosApuntados_concierto($mail_local){
     $select = "select apuntar.* from apuntar
                inner join usuario on apuntar.mail_grupo = usuario.email
                inner join concierto on concierto.idconcierto = apuntar.idconcierto
-               where concierto.email_local = '$mail_local'";
+               where concierto.email_local = '$mail_local' and concierto.musico_mail is null";
     
     $resultado= mysqli_query($con, $select);
     
@@ -407,6 +407,48 @@ function musicosConcierto($idconcierto){
                inner join usuario on apuntar.mail_grupo = usuario.email
                inner join concierto on concierto.idconcierto = apuntar.idconcierto
                where concierto.idconierto = '$idconcierto'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function escogerMusico($idconcierto, $mail_musico){
+    $con = conexion("bbfs");
+    $consulta = "UPDATE concierto SET estado = 'a', musico_mail = '$mail_musico' WHERE idconcierto= '$idconcierto'";
+                 
+    
+    if (mysqli_query($con, $consulta)) {
+        echo "Modificada tabla concierto<br>";
+        echo "<a href='local.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function escogerMusico2($idconcierto, $mail_musico){
+    $con = conexion("bbfs");
+    $consulta = "UPDATE apuntar SET aceptado = 1 WHERE idconcierto= '$idconcierto' and mail_grupo = '$mail_musico'";
+                 
+    
+    if (mysqli_query($con, $consulta)) {
+        echo "Modificada tabala apuntar <br>";
+        echo "<a href='local.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+
+function conciertoSinMusico(){
+    $con = conexion("bbfs");
+    $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre as n_local, ciudad.nombre_ciudad
+               from concierto inner join usuario on concierto.email_local = usuario.email
+               inner join ciudad on ciudad.idciudad = usuario.idciudad
+               where concierto.mail_musico = '' and concierto.estado = 'p'";
     
     $resultado= mysqli_query($con, $select);
     
