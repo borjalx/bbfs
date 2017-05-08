@@ -331,7 +331,7 @@ function apuntaraConcierto($idconcierto,$mail_grupo,$fecha){
 
 function crearConcierto($nombre,$fecha,$hora,$precio,$mail,$idgenero){
     $con = conexion("bbfs");
-    $consulta = "INSERT INTO concierto VALUES (null,'$nombre','p','$fecha','$hora','$precio','$mail','$idgenero')";
+    $consulta = "INSERT INTO concierto (nombre,estado,fecha,hora,precio,email_local,idgenero) VALUES ('$nombre','p','$fecha','$hora','$precio','$mail','$idgenero')";
     
     if (mysqli_query($con, $consulta)) {
         echo "Creado correctamente<br>";
@@ -447,7 +447,7 @@ function conciertoSinMusico(){
     $select = "select concierto.idconcierto,concierto.nombre, concierto.estado, concierto.fecha, concierto.hora, usuario.nombre as n_local, ciudad.nombre_ciudad
                from concierto inner join usuario on concierto.email_local = usuario.email
                inner join ciudad on ciudad.idciudad = usuario.idciudad
-               where concierto.mail_musico is null and concierto.estado = 'p'";
+               where concierto.musico_mail is null and concierto.estado = 'p'";
     
     $resultado= mysqli_query($con, $select);
     

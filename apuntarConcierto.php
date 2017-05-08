@@ -28,9 +28,12 @@ if(isset($_POST['escoger1'])){
     $conc = conciertoSinMusico();
     while ($fila = mysqli_fetch_array($conc)) {        
         extract($fila);
+
+        if(!comprobarApuntadoConcierto($email, $idconcierto)){
         echo "<tr>";
         echo "<td>$idconcierto</td> <td>$nombre</td> <td>$estado</td> <td>$fecha</td> <td>$hora</td> <td>$n_local</td> <td>$nombre_ciudad</td>";
         echo "</tr>";
+        }
     }
    ?>
 </table>
@@ -38,7 +41,7 @@ if(isset($_POST['escoger1'])){
     ID del concierto : 
     <select name="con_c">        
         <?php
-        $conc = conciertosDisponibles($idg);        
+        $conc = conciertoSinMusico();        
         while ($fila = mysqli_fetch_array($conc)){
             extract($fila);
             if(!comprobarApuntadoConcierto($email, $idconcierto)){
