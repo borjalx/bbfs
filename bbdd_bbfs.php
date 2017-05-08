@@ -467,7 +467,7 @@ function conciertosCelebrados(){
 
 function apuntarConciertoAsistido($email, $idconcierto){
     $con = conexion("bbfs");
-    $consulta = "insert into concierto_asistido (`email_fan`, `idconcierto`) values ('$email', '$idconcierto')";
+    $consulta = "insert into concierto_asistido (email_fan, idconcierto) values ('$email', '$idconcierto')";
     echo "<br>$consulta<br>";         
  
     if (mysqli_query($con, $consulta)) {
@@ -531,4 +531,5 @@ function conciertosAsistidos($email){
     desconectar($con);
     return $resultado;
 }
+
 ?>

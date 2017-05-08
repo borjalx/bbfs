@@ -17,9 +17,13 @@ if(isset($_POST['seleccionar'])){
     echo "Has entrado a seleccionar<br>";
     echo "IDconcierto = $concierto<br>";
     echo "Músico = $musico<br>";
+    if(comprobarApuntadoConcierto($musico, $concierto)){
+      escogerMusico($concierto, $musico);
+      escogerMusico2($concierto, $musico);  
+    }else{
+        echo "El músico/grupo '$musico' no se ha apuntado al concierto '$concierto'";
+    }
     
-    escogerMusico($concierto, $musico);
-    escogerMusico2($concierto, $musico);
 }else{
     $ranking = musicosApuntados_concierto($email);
 
