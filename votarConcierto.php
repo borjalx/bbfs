@@ -7,8 +7,28 @@ $email = $_SESSION["email_u"];
 $nombre = $_SESSION["nombre_u"];
 
 //$n_ciudad = nombreCiudad($ciudad);
-
-
+if(isset($_POST['votopos'])){
+    
+    $idc = $_POST['concierto'];
+    if(comprobarVotoConcierto($email, $idc)){
+        echo "Ya has votado al concierto";
+        echo "<a href='votarConcierto.php'> Volver </a>";
+    }else{
+        votarConcierto($email, $idc, true);
+    }
+    
+    
+}else if(isset($_POST['votoneg'])){
+    
+    $idc = $_POST['concierto'];
+    if(comprobarVotoConcierto($email, $idc)){
+        echo "Ya has votado al concierto";
+        echo "<a href='votarConcierto.php'> Volver </a>";
+    }else{
+        votarConcierto($email, $idc, false);
+    }    
+}else{
+    
 ?>
 <form action="" method="POST">
     Conciertos:
@@ -27,6 +47,7 @@ $nombre = $_SESSION["nombre_u"];
 </form>
 
 <?php
+}
 }else{
     /*
     echo "<h2>Login o Password Incorrectos</h2>";*/

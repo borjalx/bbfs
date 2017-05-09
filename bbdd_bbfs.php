@@ -368,24 +368,67 @@ function musicosxg($idgenero){
     return $resultado;
 }
 
-function votarConcierto($email,$idconcierto,$fecha){
-    $con = conexion("bbfs");
-    $select = "insert into votar_concierto values ('$idconcierto','$email','$fecha')";
+function comprobarVotoConcierto($email,$idconcierto){
+    $conectar = conexion("bbfs");
+    $consulta = "select * from votar_concierto where mail_fan ='$email' and idconcierto ='$idconcierto'";
     
-    $resultado= mysqli_query($con, $select);
-    
-    desconectar($con);
-    return $resultado;
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    } 
 }
 
-function votarMusico($email_fan,$email_musico,$fecha){
+function votarConcierto($email,$idconcierto,$voto){
     $con = conexion("bbfs");
-    $select = "insert into votar_concierto values ('$email_musico','$email_fan','$fecha')";
+    $select = "insert into votar_concierto values ('$idconcierto','$email',now(),'$voto')";
     
-    $resultado= mysqli_query($con, $select);
     
+    if (mysqli_query($con, $select)) {
+        if($voto == 0){
+            echo "Voto negativo<br>";            
+        }else if($voto == 1){
+            echo "Voto positivo<br>";
+        }        
+        echo "<a href='votarConcierto.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
     desconectar($con);
-    return $resultado;
+}
+
+function comprobarVotoMusico($email_fan,$idconcierto){
+    $conectar = conexion("bbfs");
+    $consulta = "select * from votar_musico where mail_fan ='$email_fan' and idconcierto ='$idconcierto'";
+    
+    $resultado = mysqli_query($conectar, $consulta);
+    $contador = mysqli_num_rows($resultado);
+    desconectar($conectar);
+    if($contador > 0){
+        return true;
+    }else {
+        return false;
+    } 
+}
+
+function votarMusico($email_fan,$email_musico,$voto,$idconcierto){
+    $con = conexion("bbfs");
+    $select = "insert into votar_musico values ('$email_musico','$email_fan',now(),'$voto',$idconcierto)";
+     
+   if (mysqli_query($con, $select)) {
+        if($voto == 0){
+            echo "Voto negativo<br>";            
+        }else if($voto == 1){
+            echo "Voto positivo<br>";
+        }        
+        echo "<a href='votarMusico.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
 }
 
 function musicosApuntados_concierto($mail_local){
@@ -524,7 +567,34 @@ function comprobarApuntadoConcierto($email_musico, $idconcierto){
 
 function conciertosAsistidos($email){
     $con = conexion("bbfs");
-    $select = "select * from concierto_asistido where email_fan = '$email'";
+    $select = "select concierto.nombre, concierto.idconcierto 
+                from concierto_asistido 
+                inner join concierto on concierto.idconcierto = concierto_asistido.idc_asistido
+                where email_fan = '$email'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function musicosConciertosAsistidos($email){
+    $con = conexion("bbfs");
+    $select = "select usuario.nombre as n_u, concierto.musico_mail, concierto.nombre as c_u from concierto 
+inner join usuario on usuario.email = concierto.musico_mail where idconcierto in (
+select idconcierto from concierto_asistido where email_fan = '$email')";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function mca2($email_fan,$email_musico){
+    $con = conexion("bbfs");
+    $select = "select usuario.nombre as n_u, concierto.musico_mail, concierto.idconcierto as idc from concierto 
+               inner join usuario on usuario.email = concierto.musico_mail where musico_mail = '$email_musico' and idconcierto in (
+               select idconcierto from concierto_asistido where email_fan = '$email_fan');";
     
     $resultado= mysqli_query($con, $select);
     
