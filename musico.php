@@ -3,7 +3,7 @@
 session_start();
 if(isset($_SESSION["tipo_u"]) == 'm'){
 require_once 'bbdd_bbfs.php';
-$nombre = $_SESSION["nombre_u"];
+$nombre_m = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];
 $genero = $_SESSION["genero_u"];
@@ -86,14 +86,43 @@ $idg = $_SESSION["idg_u"];
                     echo "</table>";
                     ?>
 				</article>
+                            <article>
+					<?php
+                    require_once 'bbdd_bbfs.php';
+
+                    $sel = calqtha($email);
+
+                    echo "<h2 class='titulo'>CONCIERTOS A LOS QUE TE HAS APUNTADO</h2>";
+                    echo '<div class="centrar-tabla">';
+                    echo "<table>";
+                    echo "<tr>";
+                    echo "<th>Nombre</th> <th>Fecha</th> <th>ACEPTADO</th> <br>";
+                    echo "</tr>";
+                    while ($fila = mysqli_fetch_array($sel)) {
+                        extract($fila);
+                        /* Siempre después de extract las variables se llaman como en la bbdd
+                         */
+                        $ac;
+                        if($aceptado == false){
+                            $ac = "No";
+                        }else if($aceptado == true){
+                            $ac = "Si";
+                        }
+                        echo "<tr>";
+                        echo "<td>$nombre</td> <td>$fecha</td> <td>$ac</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    ?>
+				</article>
 			</section>
 			
 			
 			<aside>
 				<div class="imagen"></div>
-				<h2><?php echo "$nombre";?></h2>
+				<h2><?php echo "$nombre_m";?></h2>
 				<p>
-                                <div>Nombre : <?php echo $nombre;?></div>
+                                <div>Nombre : <?php echo $nombre_m;?></div>
                                 <div>Ciudad : <?php echo $ciudad;?></div>
                                 <div>Teléfono : <?php echo $telefono;?></div>
                                 <div>Genero : <?php echo $genero;?></div>

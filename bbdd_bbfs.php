@@ -602,4 +602,64 @@ function mca2($email_fan,$email_musico){
     return $resultado;
 }
 
+function verPerfilMusico($email_musico){
+    $con = conexion("bbfs");
+    $select = "SELECT usuario.nombre, usuario.telefono, usuario.n_componentes,usuario.imagen, ciudad.nombre_ciudad, genero.nombre_genero
+              FROM usuario 
+              inner join ciudad on ciudad.idciudad = usuario.idciudad 
+              inner join genero on genero.idgenero = usuario.idgenero 
+              WHERE email='$email_musico'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function musicos(){
+    $con = conexion("bbfs");
+    $select = "select * from usuario where tipo = 'm'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+function ccsma($email){
+    $con = conexion("bbfs");
+    $select = "select concierto.*,genero.nombre_genero from concierto
+inner join genero on genero.idgenero = concierto.idgenero
+where email_local = '$email' and musico_mail is null";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function cccma($email){
+    $con = conexion("bbfs");
+    $select = "select concierto.*,genero.nombre_genero,usuario.nombre as nombre_musico from concierto
+inner join genero on genero.idgenero = concierto.idgenero
+inner join usuario on usuario.email = concierto.musico_mail
+where email_local = '$email' and musico_mail is not null;";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function calqtha($email){
+    $con = conexion("bbfs");
+    $select = "select apuntar.*,concierto.nombre 
+               from apuntar 
+               inner join concierto on concierto.idconcierto = apuntar.idconcierto
+               where mail_grupo = '$email'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
 ?>

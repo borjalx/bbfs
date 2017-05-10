@@ -40,11 +40,16 @@ if(isset($_POST['votopos'])){
     }else{
         votarMusico($email, $email_musico, false, $idc);
     }   
+}else if(isset ($_POST['verper'])){
+    
+    $email_musico = $_POST['musico'];
+    header("location:verPerfil.php?email_m=$email_musico");
+    echo "<a href='votarMusico.php'> Volver </a>";
 }else{
     
 ?>
 <form action="" method="POST">
-    Musicos:
+    Musicos - Concierto :
     <select name="musico">
         <?php
     $ranking = musicosConciertosAsistidos($email);
@@ -58,7 +63,7 @@ if(isset($_POST['votopos'])){
     </select>
     <input type="submit" name="votopos" value="votopos">
     <input type="submit" name="votoneg" value="votoneg">
-    
+    <input type="submit" name="verper" value="verper">
 </form>
 
 <?php
