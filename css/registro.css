@@ -154,7 +154,7 @@ select, .formulario input[type="text"], .formulario input[type="password"], .for
     font-size: 16px;
 }
 
-select, .formulario input[type="text"]:focus, .formulario input[type="password"]:focus, .formulario input[type="email"]:focus, .formulario input[type="date"]:focus, .formulario input[type="number"]:focus {
+.formulario input[type="text"]:focus, .formulario input[type="password"]:focus, .formulario input[type="email"]:focus, .formulario input[type="date"]:focus, .formulario input[type="number"]:focus {
     border: 2px solid #c0392b;
 }
 
