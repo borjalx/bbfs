@@ -510,8 +510,7 @@ function conciertosCelebrados(){
 
 function apuntarConciertoAsistido($email, $idconcierto){
     $con = conexion("bbfs");
-    $consulta = "insert into concierto_asistido (email_fan, idconcierto) values ('$email', '$idconcierto')";
-    echo "<br>$consulta<br>";         
+    $consulta = "insert into concierto_asistido (email_fan, idconcierto) values ('$email', '$idconcierto')";         
  
     if (mysqli_query($con, $consulta)) {
         echo "Apuntado a concierto asistido <br>";
@@ -661,5 +660,63 @@ function calqtha($email){
     
     desconectar($con);
     return $resultado;
+}
+
+function conciertosaEliminar($email_local){
+    $con = conexion("bbfs");
+    $select = "select * from concierto where email_local = '$email_local' and fecha > now() and musico_mail is null";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function eliminarConcierto($idconcierto){
+    $con = conexion("bbfs");
+    $consulta = "DELETE FROM concierto WHERE idconcierto='$idconcierto'";        
+ 
+    if (mysqli_query($con, $consulta)) {
+        echo "Concierto eliminado correctamente <br>";
+        echo "<a href='local.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function conciertosApuntados($musico_mail){
+    $con = conexion("bbfs");
+    $select = "select * from concierto where musico_mail = '$musico_mail'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function desapuntarConcierto($idconcierto){
+    $con = conexion("bbfs");
+    $consulta = "UPDATE concierto SET musico_mail = NULL WHERE idconcierto = '$idconcierto'";        
+ 
+    if (mysqli_query($con, $consulta)) {
+        echo "Concierto modificado <br>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function desapuntarConcierto2($idconcierto,$mail_musico){
+    $con = conexion("bbfs");
+    $consulta = "DELETE FROM apuntar WHERE idconcierto='$idconcierto' and mail_grupo = '$mail_musico'";        
+ 
+    if (mysqli_query($con, $consulta)) {
+        echo "Desapuntado correctamente <br>";
+        echo "<a href='musico.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
 }
 ?>
