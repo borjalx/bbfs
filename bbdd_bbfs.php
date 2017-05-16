@@ -697,7 +697,7 @@ function conciertosApuntados($musico_mail){
 
 function desapuntarConcierto($idconcierto){
     $con = conexion("bbfs");
-    $consulta = "UPDATE concierto SET musico_mail = NULL WHERE idconcierto = '$idconcierto'";        
+    $consulta = "UPDATE concierto SET musico_mail = NULL, estado = 'p' WHERE idconcierto = '$idconcierto'";        
  
     if (mysqli_query($con, $consulta)) {
         echo "Concierto modificado <br>";
@@ -714,6 +714,39 @@ function desapuntarConcierto2($idconcierto,$mail_musico){
     if (mysqli_query($con, $consulta)) {
         echo "Desapuntado correctamente <br>";
         echo "<a href='musico.php'> Volver </a>";
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+}
+
+function conciertosModificables($email){
+    $con = conexion("bbfs");
+    $select = "select * from concierto where email_local = '$email' and estado = 'p'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function datosConcierto($idconcierto){
+    $con = conexion("bbfs");
+    $select = "select * from concierto where idconcierto = '$idconcierto'";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+function modificarConcierto($idconcierto, $nombre, $fecha, $hora, $precio, $idgenero){
+    $con = conexion("bbfs");
+    $consulta = "UPDATE concierto SET nombre = '$nombre', fecha = '$fecha', hora = '$hora', precio ='$precio', idgenero = '$idgenero' WHERE idconcierto = '$idconcierto'";
+    
+    if (mysqli_query($con, $consulta)) {
+        echo "Concierto modificado correctamente <br>";
+        echo "<a href='local.php'> Volver </a>";
     } else {
         echo mysqli_error($con);
     }

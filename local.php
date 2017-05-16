@@ -89,7 +89,6 @@ $email = $_SESSION["email_u"];
 				</article>
                             <article>
 					<?php
-                    require_once 'bbdd_bbfs.php';
 
                     $ranking2 = ccsma($email);
 
