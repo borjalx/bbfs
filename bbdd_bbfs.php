@@ -148,7 +148,7 @@ function inicioSesion($email,$password){
 
 function nombreCiudad($id_ciudad){
     $con = conexion("bbfs");   
-    $select = "select nombre_ciudad from ciudad where idciudad = '4'";
+    $select = "select nombre_ciudad from ciudad where idciudad = '$id_ciudad'";
     $resultado= mysqli_query($con, $select);
     
     desconectar($con);
@@ -751,5 +751,15 @@ function modificarConcierto($idconcierto, $nombre, $fecha, $hora, $precio, $idge
         echo mysqli_error($con);
     }
     desconectar($con);
+}
+
+function votos($email_musico){
+    $con = conexion("bbfs");
+    $select = "select count(*) as n_v from votar_musico where voto = 1 and mail_musico = '$email_musico' group by voto";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
 }
 ?>

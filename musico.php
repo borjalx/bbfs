@@ -128,6 +128,13 @@ $idg = $_SESSION["idg_u"];
                                 <div>Genero : <?php echo $genero;?></div>
                                 <div>Nº componentes : <?php echo $nc;?></div>
                                 <div>ID Genero : <?php echo $idg;?></div>
+                                <div>Votos positivos: <?php 
+                                $votos = votos($email); 
+                                while ($fila = mysqli_fetch_array($votos)) {
+                                    extract($fila);
+                                    echo $n_v;
+                                }
+                                    ?></div>
                                 </p>
 				<div class="imagen"></div>
 			</aside>
