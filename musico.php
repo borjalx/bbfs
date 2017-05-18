@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if(isset($_SESSION["tipo_u"]) == 'm'){
+if(strcasecmp($_SESSION['tipo_u'] , 'm' ) == 0){
 require_once 'bbdd_bbfs.php';
 $nombre_m = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];

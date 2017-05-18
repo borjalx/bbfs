@@ -9,7 +9,7 @@ $town = $_POST['town'];
 $gender = $_POST['gender'];
 $ncom = $_POST['ncom'];
 editarMusico($email, $name, $tel, $town, $gender, $ncom);
-}else if (isset($_SESSION["tipo_u"]) == 'l') {
+}else if (strcasecmp($_SESSION['tipo_u'] , 'm' ) == 0) {
 $nombre = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];

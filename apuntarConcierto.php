@@ -1,14 +1,9 @@
 <?php
 session_start();
-if(isset($_SESSION["tipo_u"]) == 'm'){
+if(strcasecmp($_SESSION['tipo_u'] , 'm' ) == 0){
 require_once 'bbdd_bbfs.php';
-$nombre = $_SESSION["nombre_u"];
-$telefono = $_SESSION["tel_u"];
-$ciudad = $_SESSION["ciudad_u"];
-$genero = $_SESSION["genero_u"];
-$nc = $_SESSION["nc_u"];
 $email = $_SESSION["email_u"];
-$idg = $_SESSION["idg_u"];
+
 
 //$n_ciudad = nombreCiudad($ciudad);
 if(isset($_POST['escoger1'])){

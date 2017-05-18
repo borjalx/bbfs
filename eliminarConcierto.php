@@ -1,14 +1,9 @@
 <?php
 session_start();
 /*Tengo error a la hora de autentificar el tipo de usuario (MAR)*/
-if(isset($_SESSION["tipo_u"]) == 'l'){
+if(strcasecmp($_SESSION['tipo_u'] , 'l' ) == 0){
 require_once 'bbdd_bbfs.php';
 $nombre_local = $_SESSION["nombre_u"];
-$telefono = $_SESSION["tel_u"];
-$ciudad = $_SESSION["ciudad_u"];
-$aforo = $_SESSION["aforo_u"];
-$direccion = $_SESSION["direccion_u"];
-$genero = $_SESSION["genero_u"];
 $email = $_SESSION["email_u"];
 //$n_ciudad = nombreCiudad($ciudad);   
 ?>

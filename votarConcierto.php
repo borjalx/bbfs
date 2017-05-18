@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if(isset($_SESSION["tipo_u"]) == 'f'){
+if(strcasecmp($_SESSION['tipo_u'] , 'f' ) == 0){
 require_once 'bbdd_bbfs.php';
 $email = $_SESSION["email_u"];
 $nombre = $_SESSION["nombre_u"];

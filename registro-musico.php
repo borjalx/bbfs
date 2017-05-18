@@ -1,9 +1,7 @@
 <?php
 require_once 'bbdd_bbfs.php';
 if(isset($_POST['enviar'])){
-    
-    echo "Has hecho click";
-    
+
     $email = $_POST['correo'];
     $contraseña = $_POST['password1'];
     $nombre = $_POST['nombre-grupo'];

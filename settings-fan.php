@@ -9,7 +9,7 @@ $tel = $_POST['tel'];
 $town = $_POST['town'];
 $gender = $_POST['gender'];
 editarFan($email, $name, $surn, $tel, $town, $gender);
-}else if (isset($_SESSION["tipo_u"]) == 'f') {
+}else if (strcasecmp($_SESSION['tipo_u'] , 'f' ) == 0) {
 $nombre = $_SESSION["nombre_u"];
 $apellido = $_SESSION["apellido_u"];
 $telefono = $_SESSION["tel_u"];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["tipo_u"]) == 'l') {
+if (strcasecmp($_SESSION['tipo_u'] , 'l' ) == 0) {
 require_once 'bbdd_bbfs.php';
 $email = $_SESSION["email_u"];
 if(isset($_POST['modificar'])){

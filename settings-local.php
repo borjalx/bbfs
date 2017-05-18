@@ -10,7 +10,7 @@ $gender = $_POST['gender'];
 $afo = $_POST['afo'];
 $dir = $_POST['dir'];
 editarLocal($email, $name, $tel, $town, $gender, $afo, $dir);
-}else if (isset($_SESSION["tipo_u"]) == 'l') {
+}else if (strcasecmp($_SESSION['tipo_u'] , 'l' ) == 0) {
 $nombre = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];
