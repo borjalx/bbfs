@@ -11,7 +11,7 @@ $aforo = $_SESSION["aforo_u"];
 $direccion = $_SESSION["direccion_u"];
 $genero = $_SESSION["genero_u"];
 $email = $_SESSION["email_u"];
-echo $_SESSION["tipo_u"];
+
 //$n_ciudad = nombreCiudad($ciudad);
 ?>
 <html lang="es">

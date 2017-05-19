@@ -676,7 +676,6 @@ function eliminarConcierto($idconcierto){
  
     if (mysqli_query($con, $consulta)) {
         echo "Concierto eliminado correctamente <br>";
-        echo "<a href='local.php'> Volver </a>";
     } else {
         echo mysqli_error($con);
     }

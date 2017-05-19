@@ -7,21 +7,7 @@ $nombre = $_SESSION["nombre_u"];
 $genero = $_SESSION["genero_u"];
 $email = $_SESSION["email_u"];
 //$n_ciudad = nombreCiudad($ciudad);
-if(isset($_POST['seleccionar'])){
-    $concierto = $_POST['idc'];
-    $musico = $_POST['m'];
-    echo "Has entrado a seleccionar<br>";
-    echo "IDconcierto = $concierto<br>";
-    echo "Músico = $musico<br>";
-    if(comprobarApuntadoConcierto($musico, $concierto)){
-      escogerMusico($concierto, $musico);
-      escogerMusico2($concierto, $musico);  
-    }else{
-        echo "El músico/grupo '$musico' no se ha apuntado al concierto '$concierto'";
-    }
-    
-}else{
-    $ranking = musicosApuntados_concierto($email);
+$ranking = musicosApuntados_concierto($email);
 
 echo "<table>";
 echo "<tr>";
@@ -69,8 +55,20 @@ echo "</table>";
     <input type="submit" name="seleccionar" value="seleccionar"/>
 </form>
 <?php
+if(isset($_POST['seleccionar'])){
+    $concierto = $_POST['idc'];
+    $musico = $_POST['m'];
+    echo "Has entrado a seleccionar<br>";
+    echo "IDconcierto = $concierto<br>";
+    echo "Músico = $musico<br>";
+    if(comprobarApuntadoConcierto($musico, $concierto)){
+      escogerMusico($concierto, $musico);
+      escogerMusico2($concierto, $musico);  
+    }else{
+        echo "El músico/grupo '$musico' no se ha apuntado al concierto '$concierto'";
+    }
+    
 }
-
 }
     else{
     /*
