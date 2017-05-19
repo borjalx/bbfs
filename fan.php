@@ -3,7 +3,6 @@
 session_start();
 if(strcasecmp($_SESSION['tipo_u'] , 'f' ) == 0){
 require_once 'bbdd_bbfs.php';
-echo $_SESSION['tipo_u'];
 $email = $_SESSION["email_u"];
 $nombre = $_SESSION["nombre_u"];
 $apellido = $_SESSION["apellido_u"];

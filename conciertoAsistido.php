@@ -5,18 +5,6 @@ require_once 'bbdd_bbfs.php';
 $email = $_SESSION["email_u"];
 $nombre = $_SESSION["nombre_u"];
 
-if(isset($_POST['apuntar'])){
-    $concierto = $_POST['concierto'];
-    
-    if(!comprobarConciertoAsistido($email, $concierto)){
-        apuntarConciertoAsistido($email, $concierto);
-    }else{
-        echo "Ya sabemos que has asistido a ese concierto ;)<br>";
-        echo '<a href="conciertoAsistido.php">Volver a escoger</a>';
-    }
-    
-}else{
-    
 
 ?>
 <form method="POST" action="">
@@ -35,6 +23,15 @@ if(isset($_POST['apuntar'])){
 </form>
 
 <?php
+if(isset($_POST['apuntar'])){
+    $concierto = $_POST['concierto'];
+    
+    if(!comprobarConciertoAsistido($email, $concierto)){
+        apuntarConciertoAsistido($email, $concierto);
+    }else{
+        echo "Ya sabemos que has asistido a ese concierto ;)<br>";
+    }
+    
 }
 }else{
     /*
