@@ -29,7 +29,8 @@ echo "</table>";
         <?php
     $ranking2 = musicosApuntados_concierto($email);
     while ($fila = mysqli_fetch_array($ranking2)) {
-    extract($fila);
+    $resultado = array_unique($fila);
+    extract($resultado);
     /* Siempre después de extract las variables se llaman como en la bbdd
      */
     echo "<option value='$idconcierto'>$idconcierto</option>";
@@ -43,8 +44,7 @@ echo "</table>";
         <?php
     $ranking2 = musicosApuntados_concierto($email);
     while ($fila = mysqli_fetch_array($ranking2)) {
-        $resultado = array_unique($fila);
-    extract($resultado);
+    extract($fila);
     /* Siempre después de extract las variables se llaman como en la bbdd
      */
     echo "<option name='$mail_grupo'>$mail_grupo</option>";
@@ -58,7 +58,6 @@ echo "</table>";
 if(isset($_POST['seleccionar'])){
     $concierto = $_POST['idc'];
     $musico = $_POST['m'];
-    echo "Has entrado a seleccionar<br>";
     echo "IDconcierto = $concierto<br>";
     echo "Músico = $musico<br>";
     if(comprobarApuntadoConcierto($musico, $concierto)){
