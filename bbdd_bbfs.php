@@ -322,7 +322,6 @@ function apuntaraConcierto($idconcierto,$mail_grupo,$fecha){
 
     if (mysqli_query($con, $consulta)) {
         echo "Apuntado correctamente<br>";
-        echo "<a href='musico.php'> Volver </a>";
     } else {
         echo mysqli_error($con);
     }
@@ -335,7 +334,6 @@ function crearConcierto($nombre,$fecha,$hora,$precio,$mail,$idgenero){
     
     if (mysqli_query($con, $consulta)) {
         echo "Creado correctamente<br>";
-        echo "<a href='local.php'> Volver </a>";
     } else {
         echo mysqli_error($con);
     }
@@ -753,9 +751,20 @@ function modificarConcierto($idconcierto, $nombre, $fecha, $hora, $precio, $idge
     desconectar($con);
 }
 
-function votos($email_musico){
+function votosp($email_musico){
     $con = conexion("bbfs");
     $select = "select count(*) as n_v from votar_musico where voto = 1 and mail_musico = '$email_musico' group by voto";
+    
+    $resultado= mysqli_query($con, $select);
+    
+    desconectar($con);
+    return $resultado;
+}
+
+
+function votosn($email_musico){
+    $con = conexion("bbfs");
+    $select = "select count(*) as n_v from votar_musico where voto = 0 and mail_musico = '$email_musico' group by voto";
     
     $resultado= mysqli_query($con, $select);
     

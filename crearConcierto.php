@@ -5,15 +5,6 @@ if(strcasecmp($_SESSION['tipo_u'] , 'l' ) == 0){
 require_once 'bbdd_bbfs.php';
 $email = $_SESSION["email_u"];
 
-if(isset($_POST['crear'])){
-    $nombre_conc = $_POST['nombrec'];
-    $fecha_conc = $_POST['fecha'];
-    $hora_conc = $_POST['hora'];
-    $precio_conc = $_POST['precio'];
-    $idgenero = $_POST["genero"];
-    
-    crearConcierto($nombre_conc, $fecha_conc, $hora_conc, $precio_conc, $email, $idgenero);
-}
 ?>
 <html>
     <head>
@@ -53,6 +44,16 @@ if(isset($_POST['crear'])){
     </body>
 </html>
 <?php
+
+if(isset($_POST['crear'])){
+    $nombre_conc = $_POST['nombrec'];
+    $fecha_conc = $_POST['fecha'];
+    $hora_conc = $_POST['hora'];
+    $precio_conc = $_POST['precio'];
+    $idgenero = $_POST["genero"];
+    
+    crearConcierto($nombre_conc, $fecha_conc, $hora_conc, $precio_conc, $email, $idgenero);
+}
 }else{
     /*
     echo "<h2>Login o Password Incorrectos</h2>";*/
