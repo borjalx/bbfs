@@ -35,6 +35,7 @@ echo "</table>";
      */
     echo "<option value='$idconcierto'>$idconcierto</option>";
 }
+
         ?>
     </select>
     
