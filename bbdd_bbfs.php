@@ -233,8 +233,10 @@ function editarFan($email,$nombre,$apellidos,$telefono,$ciudad,$genero){
     $insert = "UPDATE usuario set nombre='$nombre',apellidos='$apellidos', telefono='$telefono', idciudad='$ciudad', idgenero='$genero' where email='$email'";
     
     if(mysqli_query($con, $insert)){
-        echo "Usuario modificado correctamente<br>";
-        echo "<a href='fan.php'>Volver al perfil</a>";
+        echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
+        echo '<script type="text/javascript">';
+        echo 'alert("Datos modificados correctamente");';
+        echo '</script>';
     }else{
         echo "ERROR!";
         echo mysqli_error($con);
@@ -246,8 +248,10 @@ function editarMusico($email,$nombre,$telefono,$ciudad,$genero,$ncomponentes){
     $insert = "UPDATE usuario set nombre='$nombre',n_componentes='$ncomponentes', telefono='$telefono', idciudad='$ciudad', idgenero='$genero' where email='$email'";
     
     if(mysqli_query($con, $insert)){
-        echo "Usuario modificado correctamente<br>";
-        echo "<a href='musico.php'>Volver al perfil</a>";
+        echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
+        echo '<script type="text/javascript">';
+        echo 'alert("Datos modificados correctamente");';
+        echo '</script>';
     }else{
         echo "ERROR!";
         echo mysqli_error($con);
@@ -260,8 +264,10 @@ function editarLocal($email,$nombre,$telefono,$ciudad,$genero,$aforo,$direccion)
     $insert = "UPDATE usuario set nombre='$nombre', telefono='$telefono', idciudad='$ciudad', idgenero='$genero', aforo = '$aforo', direccion = '$direccion' where email='$email'";
     
     if(mysqli_query($con, $insert)){
-        echo "Usuario modificado correctamente<br>";
-        echo "<a href='local.php'>Volver al perfil</a>";
+        echo '<META HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://localhost/BBFS/inicio-sesion.php">';
+        echo '<script type="text/javascript">';
+        echo 'alert("Datos modificados correctamente");';
+        echo '</script>';
     }else{
         echo "ERROR!";
         echo mysqli_error($con);

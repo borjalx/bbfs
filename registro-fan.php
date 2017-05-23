@@ -1,20 +1,6 @@
 <?php
 require_once 'bbdd_bbfs.php';
-if(isset($_POST['enviar'])){
-    
-    $email = $_POST['correo'];
-    $contraseña = $_POST['password1'];
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $telefono = $_POST['telefono'];
-    $ciudad = $_POST['ciudad'];
-    $sexo = $_POST['sexo'];
-    $genero = $_POST['genero'];
-    $año_nacimiento = $_POST['nacimiento'];
-     
-    registrarFan($email, $contraseña, $nombre, $apellidos, $telefono, $ciudad, $sexo, $genero, $año_nacimiento);
-}else{
-    ?>
+?>
 
 <html lang="es">
 	<head>
@@ -120,7 +106,20 @@ if(isset($_POST['enviar'])){
 	</body>
 </html>
 
-    <?php
+<?php
+if(isset($_POST['enviar'])){
+    
+    $email = $_POST['correo'];
+    $contraseña = $_POST['password1'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $telefono = $_POST['telefono'];
+    $ciudad = $_POST['ciudad'];
+    $sexo = $_POST['sexo'];
+    $genero = $_POST['genero'];
+    $año_nacimiento = $_POST['nacimiento'];
+     
+    registrarFan($email, $contraseña, $nombre, $apellidos, $telefono, $ciudad, $sexo, $genero, $año_nacimiento);
 }
 ?>
 

@@ -1,18 +1,6 @@
 <?php
 require_once 'bbdd_bbfs.php';
-if(isset($_POST['enviar'])){
-
-    $email = $_POST['correo'];
-    $contraseña = $_POST['password1'];
-    $nombre = $_POST['nombre-grupo'];
-    $telefono = $_POST['telefono'];
-    $ncomponentes = $_POST['ncomponentes'];
-    $genero = $_POST['genero'];
-    $ciudad = $_POST['ciudad'];
-     
-   registrarMusico($email, $nombre, $telefono, $ciudad, $genero, $ncomponentes, $contraseña);
-}else{
-    ?>
+?>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
@@ -114,5 +102,16 @@ if(isset($_POST['enviar'])){
 	</body>
 </html>
 <?php
-} 
+if(isset($_POST['enviar'])){
+
+    $email = $_POST['correo'];
+    $contraseña = $_POST['password1'];
+    $nombre = $_POST['nombre-grupo'];
+    $telefono = $_POST['telefono'];
+    $ncomponentes = $_POST['ncomponentes'];
+    $genero = $_POST['genero'];
+    $ciudad = $_POST['ciudad'];
+     
+   registrarMusico($email, $nombre, $telefono, $ciudad, $genero, $ncomponentes, $contraseña);
+}
 ?>

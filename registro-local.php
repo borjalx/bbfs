@@ -1,19 +1,6 @@
 <?php
 require_once 'bbdd_bbfs.php';
-if(isset($_POST['enviar'])){
-    
-    $email = $_POST['correo'];
-    $contraseña = $_POST['password'];
-    $nombre = $_POST['nombre-local'];
-    $direccion = $_POST['direccion-local'];
-    $telefono = $_POST['telefono'];
-    $ciudad = $_POST['ciudad'];
-    $aforo = $_POST['aforo'];
-    $genero = $_POST['genero'];
-     
-   registrarLocal($email, $nombre, $telefono, $ciudad, $genero, $aforo, $direccion, $contraseña);
-}else{
-    ?>
+?>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
@@ -117,6 +104,18 @@ if(isset($_POST['enviar'])){
 	</body>
 </html>
 <?php
+if(isset($_POST['enviar'])){
+    
+    $email = $_POST['correo'];
+    $contraseña = $_POST['password'];
+    $nombre = $_POST['nombre-local'];
+    $direccion = $_POST['direccion-local'];
+    $telefono = $_POST['telefono'];
+    $ciudad = $_POST['ciudad'];
+    $aforo = $_POST['aforo'];
+    $genero = $_POST['genero'];
+     
+   registrarLocal($email, $nombre, $telefono, $ciudad, $genero, $aforo, $direccion, $contraseña);
 } 
 ?>
 

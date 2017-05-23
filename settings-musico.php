@@ -2,14 +2,7 @@
 session_start();
 require_once 'bbdd_bbfs.php';
 $email = $_SESSION["email_u"];
-if(isset($_POST['editar'])){
-$name = $_POST['name'];
-$tel = $_POST['tel'];
-$town = $_POST['town'];
-$gender = $_POST['gender'];
-$ncom = $_POST['ncom'];
-editarMusico($email, $name, $tel, $town, $gender, $ncom);
-}else if (strcasecmp($_SESSION['tipo_u'] , 'm' ) == 0) {
+if (strcasecmp($_SESSION['tipo_u'] , 'm' ) == 0) {
 $nombre = $_SESSION["nombre_u"];
 $telefono = $_SESSION["tel_u"];
 $ciudad = $_SESSION["ciudad_u"];
@@ -102,6 +95,14 @@ $email = $_SESSION["email_u"];
     </body>
 </html>
 <?php
+if(isset($_POST['editar'])){
+$name = $_POST['name'];
+$tel = $_POST['tel'];
+$town = $_POST['town'];
+$gender = $_POST['gender'];
+$ncom = $_POST['ncom'];
+editarMusico($email, $name, $tel, $town, $gender, $ncom);
+}
 }
 else {
 /*
